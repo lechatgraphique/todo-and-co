@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Task;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,16 +14,14 @@ class TaskType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('content')
-            //  ->add('isDone')
-            // ->add('createdAt')
+            ->add('content', TextareaType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(array(
             'data_class' => Task::class,
-        ]);
+        ));
     }
 }
