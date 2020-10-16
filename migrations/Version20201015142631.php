@@ -22,7 +22,7 @@ final class Version20201015142631 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $anonymousId = 27;
+        $anonymousId = 2;
 
         $this->addSql('UPDATE task SET user_id ='. $anonymousId. ' WHERE user_id is null');
     }

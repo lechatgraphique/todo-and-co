@@ -57,7 +57,7 @@ class TaskController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'La tâche a bien été modifiée.');
@@ -93,6 +93,18 @@ class TaskController extends AbstractController
      */
     public function deleteTaskAction(Task $task) : Response
     {
+        if ($task->getUser()->getUsername() == 'Anonymous' && !$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', sprintf('Seul un admin peut supprimer cette tâche !'));
+
+            return $this->redirectToRoute('task_list');
+        }
+
+        if ($this->getUser() != $task->getUser() && !$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', sprintf('Accès refusé !'));
+
+            return $this->redirectToRoute('task_list');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();

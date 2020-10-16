@@ -51,7 +51,7 @@ class UserFixtures extends Fixture
             } elseif ($i == 3) {
                 $user
                     ->setUsername('user' . $i)
-                    ->setEmail(strtolower('user' . $i . '@mail.com'))
+                    ->setEmail(strtolower('user' . $i . '@gmail.com'))
                     ->setPassword($this->encoder->encodePassword($user, '12345'))
                     ->setRoles(['ROLE_USER']);
 
