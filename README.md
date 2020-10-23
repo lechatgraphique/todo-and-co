@@ -1,4 +1,7 @@
 # ToDo & Co #
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4f7fb60a9f9a486d90594c92c8a30029)](https://app.codacy.com/gh/lechatgraphique/todo-and-co?utm_source=github.com&utm_medium=referral&utm_content=lechatgraphique/todo-and-co&utm_campaign=Badge_Grade)
+
   
 Projet OpenClassrooms : Améliorez une application existante de ToDo & Co
   
