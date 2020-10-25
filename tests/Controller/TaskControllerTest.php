@@ -75,12 +75,13 @@ class TaskControllerTest extends WebTestCase
         $securityControllerTest = new SecurityControllerTest();
         $client = $securityControllerTest->testLogin();
 
-        $client->request('GET', '/tasks/2/delete');
+        $client->request('GET', '/tasks/3/delete');
         static::assertSame(302, $client->getResponse()->getStatusCode());
 
-        $client->followRedirect();
+        $crawler = $client->followRedirect();
         static::assertSame(200, $client->getResponse()->getStatusCode());
 
+        static::assertStringContainsString("Superbe ! La tâche a bien été supprimée.", $crawler->filter('div.alert.alert-success')->text());
     }
 
     public function testDeleteTaskActionWhereSimpleUserIsNotAuthor()
@@ -88,11 +89,13 @@ class TaskControllerTest extends WebTestCase
         $securityControllerTest = new SecurityControllerTest();
         $client = $securityControllerTest->testLogin();
 
-        $client->request('GET', '/tasks/2/delete');
+        $client->request('GET', '/tasks/1/delete');
         static::assertSame(302, $client->getResponse()->getStatusCode());
 
-        $client->followRedirect();
+        $crawler = $client->followRedirect();
         static::assertSame(200, $client->getResponse()->getStatusCode());
+
+        static::assertStringContainsString("Oops ! Accès refusé !", $crawler->filter('div.alert.alert-danger')->text());
     }
 
     public function testDeleteTaskActionWithSimpleUserWhereAuthorIsAnonymous()
@@ -103,8 +106,10 @@ class TaskControllerTest extends WebTestCase
         $client->request('GET', '/tasks/2/delete');
         static::assertSame(302, $client->getResponse()->getStatusCode());
 
-        $client->followRedirect();
+        $crawler = $client->followRedirect();
         static::assertSame(200, $client->getResponse()->getStatusCode());
+
+        static::assertStringContainsString("Oops ! Seul un admin peut supprimer cette tâche !", $crawler->filter('div.alert.alert-danger')->text());
     }
 
     public function testDeleteTaskActionWhereItemDontExists()

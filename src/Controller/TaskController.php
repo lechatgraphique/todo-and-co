@@ -95,7 +95,7 @@ class TaskController extends AbstractController
      */
     public function deleteTaskAction(Task $task) : Response
     {
-        if ($task->getUser()->getUsername() == 'Anonymous' && !$this->isGranted('ROLE_ADMIN')) {
+        if ($task->getUser()->getUsername() == 'anonymous2' && !$this->isGranted('ROLE_ADMIN')) {
             $this->addFlash('error', sprintf('Seul un admin peut supprimer cette tâche !'));
 
             return $this->redirectToRoute('task_list');
