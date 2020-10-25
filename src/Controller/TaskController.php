@@ -16,6 +16,9 @@ class TaskController extends AbstractController
      */
     public function listAction()
     {
+        dd($tasks = $this->getDoctrine()
+            ->getRepository(Task::class)
+            ->findAll());
         return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('App:Task')->findAll()]);
     }
 
