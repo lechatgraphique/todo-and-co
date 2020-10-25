@@ -30,6 +30,7 @@ Projet de la formation ***Développeur d'application - PHP / Symfony***.
 6. (Optionnel) Installez les fixtures pour avoir une démo de données fictives :
 ```
     bin/console doctrine:fixtures:load
+    bin/console doctrine:migrations:migrate
 ```
 7. Félicitations le projet est installé correctement, vous pouvez désormais commencer à l'utiliser !
 ```
